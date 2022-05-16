@@ -49,43 +49,52 @@ void GameScene::Initialize() {
 	//worldTransform_.matWorld_.IdentityMatrix4();
 	//worldTransform_.matWorld_ *= matScale;
 
-	////行列の転送
-	//worldTransform_.TransferMatrix();
+	////Rotate
+	////X,Y,Z軸周りの回転角を設定
+	//worldTransform_.rotation_ = { 0, 0, ChangeRadian(90.0f) };
+	////合成用回転行列を宣言
+	//Matrix4 matRot;
+	////各軸回転行列を宣言
+	//Matrix4 matRotX, matRotY, matRotZ;
 
-	//Rotate
-	//X,Y,Z軸周りの回転角を設定
-	worldTransform_.rotation_ = { 0.4f,0.4f,0.4f };
-	//合成用回転行列を宣言
-	Matrix4 matRot;
-	//各軸回転行列を宣言
-	Matrix4 matRotX, matRotY, matRotZ;
+	//matRotX.m[0][0] = 1.0f;
+	//matRotX.m[1][1] = cos(worldTransform_.rotation_.x);
+	//matRotX.m[1][2] = sin(worldTransform_.rotation_.x);
+	//matRotX.m[2][1] = -sin(worldTransform_.rotation_.x);
+	//matRotX.m[2][2] = cos(worldTransform_.rotation_.x);
+	//matRotX.m[3][3] = 1.0f;
 
-	matRotX.m[0][0] = 1.0f;
-	matRotX.m[1][1] = cos(worldTransform_.rotation_.x);
-	matRotX.m[1][2] = sin(worldTransform_.rotation_.x);
-	matRotX.m[2][1] = -sin(worldTransform_.rotation_.x);
-	matRotX.m[2][2] = cos(worldTransform_.rotation_.x);
-	matRotX.m[3][3] = 1.0f;
-
-	matRotY.m[0][0] = cos(worldTransform_.rotation_.y);
-	matRotY.m[0][2] = -sin(worldTransform_.rotation_.y);
-	matRotY.m[1][1] = 1.0f;
-	matRotY.m[2][0] = sin(worldTransform_.rotation_.y);
-	matRotY.m[2][2] = cos(worldTransform_.rotation_.y);
-	matRotY.m[3][3] = 1.0f;
+	//matRotY.m[0][0] = cos(worldTransform_.rotation_.y);
+	//matRotY.m[0][2] = -sin(worldTransform_.rotation_.y);
+	//matRotY.m[1][1] = 1.0f;
+	//matRotY.m[2][0] = sin(worldTransform_.rotation_.y);
+	//matRotY.m[2][2] = cos(worldTransform_.rotation_.y);
+	//matRotY.m[3][3] = 1.0f;
 
 
-	matRotZ.m[0][0] = cos(worldTransform_.rotation_.z);
-	matRotZ.m[0][1] = sin(worldTransform_.rotation_.z);
-	matRotZ.m[1][0] = -sin(worldTransform_.rotation_.z);
-	matRotZ.m[1][1] = cos(worldTransform_.rotation_.z);
-	matRotZ.m[2][2] = 1.0f;
-	matRotZ.m[3][3] = 1.0f;
+	//matRotZ.m[0][0] = cos(worldTransform_.rotation_.z);
+	//matRotZ.m[0][1] = sin(worldTransform_.rotation_.z);
+	//matRotZ.m[1][0] = -sin(worldTransform_.rotation_.z);
+	//matRotZ.m[1][1] = cos(worldTransform_.rotation_.z);
+	//matRotZ.m[2][2] = 1.0f;
+	//matRotZ.m[3][3] = 1.0f;
 
-	matRot = matRotZ *= matRotX *= matRotY;
+	//matRot = matRotZ *= matRotX *= matRotY;
 
-	worldTransform_.matWorld_.IdentityMatrix4();
-	worldTransform_.matWorld_ *= matRot;
+	//worldTransform_.matWorld_ = MathUtility::Matrix4Identity();
+	//worldTransform_.matWorld_ *= matRot;
+
+	//X,Y,Z軸周りの平行移動を設定
+	worldTransform_.translation_ = { 3,3,3 };
+	//平行移動行列を宣言
+	Matrix4 matTrans = MathUtility::Matrix4Identity();
+
+	matTrans.m[3][0] = worldTransform_.translation_.x;
+	matTrans.m[3][1] = worldTransform_.translation_.y;
+	matTrans.m[3][2] = worldTransform_.translation_.z;
+
+	worldTransform_.matWorld_ = MathUtility::Matrix4Identity();
+	worldTransform_.matWorld_ *= matTrans;
 
 	//行列の転送
 	worldTransform_.TransferMatrix();

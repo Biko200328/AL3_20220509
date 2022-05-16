@@ -66,4 +66,11 @@ class GameScene {
 
 	//デバッグカメラ
 	DebugCamera* debugCamera_ = nullptr;
+
+	//度数法をラジアンに変更
+	float ChangeRadian(float frequency)
+	{
+		float pi = 3.14159265359f;
+		return frequency * pi / 180;
+	}
 };
