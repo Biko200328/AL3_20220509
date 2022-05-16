@@ -84,6 +84,7 @@ void GameScene::Initialize() {
 	//worldTransform_.matWorld_ = MathUtility::Matrix4Identity();
 	//worldTransform_.matWorld_ *= matRot;
 
+	//Translation
 	//X,Y,Z軸周りの平行移動を設定
 	worldTransform_.translation_ = { 3,3,3 };
 	//平行移動行列を宣言
